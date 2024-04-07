@@ -1,0 +1,45 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+media_folder: static/img
+public_folder: /img
+collections:
+ - name: 'docs'
+    label: 'Docs'
+    folder: 'content/docs'
+    nested: { depth: 5 }
+    create: true
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Titre', name: 'title', widget: 'string' }
+      - { label: 'Description', name: 'description', widget: 'string' }
+      - { label: 'Résumé', name: 'summary', widget: 'string' }
+      - { label: 'Date de publication', name: 'date', widget: 'datetime' }
+      - { label: 'Date de mise à jour', name: 'lastmod', widget: 'datetime' }
+      - { label: 'Brouillon', name: 'draft', widget: 'boolean', default: true }
+      - {
+          label: 'Menu', name: 'menu', widget: 'object', required: false, collapsed: true,
+          fields: [
+            {
+              label: 'docs', name: 'docs', widget: 'object', required: false, collapsed: true,
+              fields: [
+                { label: 'Parent', name: 'parent', widget: 'string' },
+                { label: 'Identifiant', name: 'identifier', widget: 'string' }
+              ]
+            }
+          ]
+        }
+      - { label: 'Poid', name: 'weight', widget: 'number', value_type: 'integer' }
+      - { label: 'toc', name: 'toc', widget: 'boolean', default: true }
+      - {
+          label: 'SEO', name: 'seo', widget: 'object', required: false, collapsed: true,
+          fields: [
+            { label: 'Titre', name: 'title', widget: 'string' },
+            { label: 'Description', name: 'description', widget: 'string' },
+            { label: 'Canonical', name: 'canonical', widget: 'string' },
+            { label: 'noindex', name: 'noindex', widget: 'boolean', default: false }
+          ]
+        }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
